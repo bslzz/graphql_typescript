@@ -1,4 +1,5 @@
 import { createConnection } from 'typeorm'
+import { Users } from '../Entities/Users'
 
 export const db = createConnection({
   type: 'mysql',
@@ -6,6 +7,6 @@ export const db = createConnection({
   username: process.env.DB_USERNAME,
   password: process.env.DB_PASS,
   logging: true,
-  synchronize: false,
-  entities: []
+  synchronize: true,
+  entities: [Users]
 })
