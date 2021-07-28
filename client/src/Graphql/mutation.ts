@@ -31,6 +31,7 @@ export const UPDATE_PASSWORD = gql`
     ) {
       message
       success
+      error
     }
   }
 `
