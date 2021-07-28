@@ -1,19 +1,34 @@
+import { useMutation } from '@apollo/client'
 import { ChangeEvent, useState } from 'react'
+import { UPDATE_PASSWORD } from '../Graphql/mutation'
 import { IUpdatePassword } from '../typeDefs'
 
-const [updatePassword, setUpdatePassword] = useState<IUpdatePassword>({
-  username: '',
-  currentPassword: '',
-  newPassword: ''
-})
-
-const { username, currentPassword, newPassword } = updatePassword
-
-const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-  setUpdatePassword({ ...updatePassword, [e.target.name]: e.target.value })
-}
-
 const UpdatePassword = (): JSX.Element => {
+  const [updateUserPassword, setUpdateUserPassword] = useState<IUpdatePassword>(
+    {
+      username: '',
+      currentPassword: '',
+      newPassword: ''
+    }
+  )
+
+  const { username, currentPassword, newPassword } = updateUserPassword
+
+  const [updatePassword, { error }] = useMutation(UPDATE_PASSWORD)
+
+  const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    setUpdateUserPassword({
+      ...updateUserPassword,
+      [e.target.name]: e.target.value
+    })
+  }
+
+  const handleClick = () => {
+    updatePassword({
+      variables: { username, oldPassword: currentPassword, newPassword }
+    })
+  }
+
   return (
     <div>
       <input
