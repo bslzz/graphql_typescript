@@ -1,5 +1,6 @@
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client'
 import CreateUser from './components/CreateUser'
+import ListofUsers from './components/ListofUsers'
 
 const App = () => {
   const client = new ApolloClient({
@@ -11,6 +12,7 @@ const App = () => {
     <>
       <ApolloProvider client={client}>
         <CreateUser />
+        <ListofUsers />
       </ApolloProvider>
     </>
   )
